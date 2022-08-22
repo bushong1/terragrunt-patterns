@@ -1,0 +1,14 @@
+locals {
+  environment = "dev"
+
+  ## Base of all the terraform modules.  Could be relative directory or git source
+  tf_source = "../../../modules/"
+  #tf_source = "git::git@github.com:my-github-org"
+
+  ## Names of tf modules
+  tf_vpc_path = "vpc//"
+  #tf_vpc_path = "my-vpc-git-repo"
+
+  ## Refs, if applicable
+  #tf_vpc_ref = "1.2.3"
+}

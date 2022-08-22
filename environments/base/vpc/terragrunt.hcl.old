@@ -1,0 +1,17 @@
+locals {
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals
+
+  # Default to latest release unless overridden in <env>/common.hcl
+  tf_vpc_path = lookup(local.common, "tf_vpc_path", "vpc")
+  tf_vpc_ref  = lookup(local.common, "tf_vpc_ref", "")
+  tf_vpc_ref_suffix = local.tf_vpc_ref != "" ? "//.?ref=${local.tf_vpc_ref}" : ""
+}
+
+terraform {
+  source = "${local.common.tf_source}/${local.common.tf_vpc_path}${local.tf_vpc_ref_suffix}"
+}
+
+inputs = {
+  environment = local.common.environment
+  subnet_count = 3
+}
